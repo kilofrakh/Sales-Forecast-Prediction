@@ -9,3 +9,22 @@ file_path = 'train.csv'
 data = pd.read_csv(file_path)
 
 print(data.head())
+
+
+
+data['Order Date'] = pd.to_datetime(data['Order Date'], format='%d/%m/%Y')
+
+sales_by_date = data.groupby('Order Date')['Sales'].sum().reset_index()
+
+plt.figure(figsize=(12, 6))
+plt.plot(sales_by_date['Order Date'], sales_by_date['Sales'], label='Sales', color='red')
+plt.title('Sales Trend Over Time')
+plt.xlabel('Date')
+plt.ylabel('Sales')
+plt.grid(True)
+plt.legend()
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.show()
+
+
